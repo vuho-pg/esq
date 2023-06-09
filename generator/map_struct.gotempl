@@ -1,0 +1,3 @@
+package esq
+
+type {{.Name}} common.GenericMapType[{{.KeyType}}, {{.ValueType}}]

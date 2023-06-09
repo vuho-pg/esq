@@ -1,0 +1,32 @@
+package esq
+
+type {{.Name}}Builder struct {
+    {{- range .Fields}}
+    {{.Name}} {{if not .Required}}*{{end}}{{.Type}} `json:"{{.JsonTag}}{{if not .Required}},omitempty{{end}}"`
+    {{- end}}
+}
+
+func {{.Name}}(
+{{- range .Fields}}
+{{- if .Required}}
+{{.ParamName}} {{.Type}},{{- end}}
+{{- end}}
+) *{{.Name}}Builder {
+    return &{{.Name}}Builder{
+       {{- range .Fields}}
+       {{- if .Required}}
+       {{.Name}}: {{.ParamName}},
+       {{- else}}
+       {{- if .HasDefault}}
+       {{.Name}}: common.PtrOf({{.DefaultValue}}),{{- end}}{{- end}}
+       {{- end}}
+    }
+}
+
+{{- range .Fields}}
+func ({{$.ReceiverName}} *{{$.Name}}Builder) Set{{.Name}}({{.ParamName}} {{if .IsArr}}...{{.SingularType}}{{else}}{{.Type}}{{end}}) *{{$.Name}}Builder {
+    {{$.ReceiverName}}.{{.Name}} = {{if not .Required}}&{{end}}{{.ParamName}}
+    return {{$.ReceiverName}}
+}
+
+{{- end}}
