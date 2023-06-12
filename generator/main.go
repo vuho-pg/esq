@@ -5,7 +5,19 @@ type Builder interface {
 }
 
 func main() {
+	CreateType(
+		Interface("Query").Method("IsQuery"))
 	// TODO: Compound query
+	CreateType(
+		Type("Bool",
+			Field("Must", "[]Query"),
+			Field("Filter", "[]Query"),
+			Field("MustNot", "[]Query"),
+			Field("Should", "[]Query"),
+			Field("MinimumShouldMatch", "int"),
+			Field("Boost", "float64"),
+		).Method("IsQuery"),
+	)
 	// Full text queries
 	CreateType(
 		// TODO: Interval
@@ -22,33 +34,35 @@ func main() {
 			Field("Operator", "string"),
 			Field("MinimumShouldMatch", "string"),
 			Field("ZeroTermsQuery", "string"),
-		),
+		).Method("IsQuery"),
 		Type("Term",
 			Field("Value", "string").Require(),
 			Field("Boost", "float64"),
 			Field("CaseInsensitive", "bool"),
-		),
+		).Method("IsQuery"),
 		Type("Range",
 			Field("GT", "any"),
 			Field("GTE", "any"),
 			Field("LT", "any"),
 			Field("LTE", "any"),
 			Field("Format", "string"),
-		),
+		).Method("IsQuery"),
 		Type("MatchPhraseField",
 			Field("Query", "string").Require(),
 			Field("Analyzer", "string"),
 			Field("ZeroTermsQuery", "string"),
-		),
-		MapType("MatchPhrase", "string", "MatchPhraseFieldBuilder"),
+		).Method("IsQuery"),
+		MapType("MatchPhrase", "string", "*MatchPhraseFieldBuilder").
+			Method("IsQuery"),
 		Type("MatchPhrasePrefixField",
 			Field("Query", "string").Require(),
 			Field("Analyzer", "string"),
 			Field("MaxExpansions", "int"),
 			Field("Slop", "int"),
 			Field("ZeroTermsQuery", "string"),
-		),
-		MapType("MatchPhrasePrefix", "string", "MatchPhrasePrefixFieldBuilder"),
+		).Method("IsQuery"),
+		MapType("MatchPhrasePrefix", "string", "*MatchPhrasePrefixFieldBuilder").
+			Method("IsQuery"),
 		Type("CombinedFieldsField",
 			Field("Fields", "[]string").Require(),
 			Field("Query", "string").Require(),
@@ -56,8 +70,9 @@ func main() {
 			Field("Operator", "string"),
 			Field("MinimumShouldMatch", "string"),
 			Field("ZeroTermsQuery", "string"),
-		),
-		MapType("CombinedFields", "string", "CombinedFieldsFieldBuilder"),
+		).Method("IsQuery"),
+		MapType("CombinedFields", "string", "*CombinedFieldsFieldBuilder").
+			Method("IsQuery"),
 		Type("MultiMatchField",
 			Field("Fields", "[]string").Require(),
 			Field("Query", "string").Require(),
@@ -75,7 +90,7 @@ func main() {
 			Field("ZeroTermsQuery", "string"),
 			Field("AutoGenerateSynonymsPhraseQuery", "bool"),
 			Field("FuzzyTranspositions", "bool"),
-		),
+		).Method("IsQuery"),
 		Type("QueryString",
 			Field("Query", "string").Require(),
 			Field("DefaultField", "string"),
@@ -99,7 +114,7 @@ func main() {
 			Field("QuoteFieldSuffix", "string"),
 			Field("Rewrite", "string"),
 			Field("TimeZone", "string"),
-		),
+		).Method("IsQuery"),
 		Type("SimpleQueryString",
 			Field("Query", "string").Require(),
 			Field("Fields", "[]string"),
@@ -114,7 +129,7 @@ func main() {
 			Field("Lenient", "bool"),
 			Field("MinimumShouldMatch", "string"),
 			Field("QuoteFieldSuffix", "string"),
-		),
+		).Method("IsQuery"),
 	)
 	// TODO: Geo query
 

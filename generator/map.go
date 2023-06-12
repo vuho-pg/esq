@@ -3,6 +3,7 @@ package main
 import (
 	"github.com/gobeam/stringy"
 	"os"
+	"strings"
 	"text/template"
 )
 
@@ -17,19 +18,27 @@ func init() {
 }
 
 type MapTypeGen struct {
-	FileName  string
-	Name      string
-	KeyType   string
-	ValueType string
+	FileName     string
+	Name         string
+	KeyType      string
+	ValueType    string
+	ReceiverName string
+	Methods      []string
 }
 
 func MapType(name string, keyType string, valueType string) *MapTypeGen {
 	return &MapTypeGen{
-		Name:      name,
-		FileName:  "../" + stringy.New(name).SnakeCase().ToLower() + ".go",
-		KeyType:   keyType,
-		ValueType: valueType,
+		Name:         name,
+		FileName:     "../" + stringy.New(name).SnakeCase().ToLower() + ".go",
+		KeyType:      keyType,
+		ValueType:    valueType,
+		ReceiverName: strings.ToLower(name[:1]),
 	}
+}
+
+func (m *MapTypeGen) Method(methods ...string) *MapTypeGen {
+	m.Methods = append(m.Methods, methods...)
+	return m
 }
 
 func (m *MapTypeGen) Build() error {

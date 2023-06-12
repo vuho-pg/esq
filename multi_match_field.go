@@ -21,6 +21,8 @@ type MultiMatchFieldBuilder struct {
 	FuzzyTranspositions             *bool    `json:"fuzzy_transpositions,omitempty"`
 }
 
+func (m *MultiMatchFieldBuilder) IsQuery() {}
+
 func MultiMatchField(
 	_fields []string,
 	_query string,

@@ -1,0 +1,8 @@
+package esq
+
+
+type {{.Name}} interface{
+    {{range .Methods}}
+    {{.}}()
+    {{end}}
+}

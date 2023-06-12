@@ -2,4 +2,14 @@ package esq
 
 import "github.com/vuho-pg/esq/common"
 
-type MatchPhrase common.GenericMapType[string, MatchPhraseFieldBuilder]
+type MatchPhraseBuilder common.GenericMapType[string, *MatchPhraseFieldBuilder]
+
+func MatchPhrase() MatchPhraseBuilder {
+	return make(MatchPhraseBuilder)
+}
+
+func (m MatchPhraseBuilder) Set(key string, value *MatchPhraseFieldBuilder) MatchPhraseBuilder {
+	m[key] = value
+	return m
+}
+func (m MatchPhraseBuilder) IsQuery() {}

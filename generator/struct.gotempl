@@ -6,6 +6,11 @@ type {{.Name}}Builder struct {
     {{- end}}
 }
 
+{{- range .Methods}}
+func ({{$.ReceiverName}} *{{$.Name}}Builder) {{.}}() {}
+{{- end}}
+
+
 func {{.Name}}(
 {{- range .Fields}}
 {{- if .Required}}

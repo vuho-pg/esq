@@ -59,6 +59,7 @@ type NormalStructGen struct {
 	ReceiverName string
 	FileName     string
 	Fields       []*FieldGen
+	Methods      []string
 }
 
 func Type(name string, fields ...*FieldGen) *NormalStructGen {
@@ -68,6 +69,11 @@ func Type(name string, fields ...*FieldGen) *NormalStructGen {
 		Fields:       fields,
 		ReceiverName: strings.ToLower(name[:1]),
 	}
+}
+
+func (t *NormalStructGen) Method(methods ...string) *NormalStructGen {
+	t.Methods = append(t.Methods, methods...)
+	return t
 }
 
 func (t *NormalStructGen) Build() error {

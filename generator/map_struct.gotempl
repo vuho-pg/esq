@@ -1,3 +1,18 @@
 package esq
 
-type {{.Name}} common.GenericMapType[{{.KeyType}}, {{.ValueType}}]
+type {{.Name}}Builder common.GenericMapType[{{.KeyType}}, {{.ValueType}}]
+
+
+func {{.Name}}() {{.Name}}Builder {
+    return make({{.Name}}Builder)
+}
+
+func ({{$.ReceiverName}} {{$.Name}}Builder) Set(key {{.KeyType}}, value {{.ValueType}}) {{$.Name}}Builder {
+    {{$.ReceiverName}}[key] = value
+    return {{$.ReceiverName}}
+}
+
+{{- range .Methods}}
+func ({{$.ReceiverName}} {{$.Name}}Builder) {{.}}() {}
+{{- end}}
+
