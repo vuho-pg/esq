@@ -1,0 +1,31 @@
+package esq
+
+
+type {{.Name}}Builder struct {
+    {{- range .Fields}}
+        {{.Name}} {{if not .Flag.IsRequired}}*{{end}}{{.FieldType}} `json:"{{.JsonTag}}{{if not .Flag.IsRequired}},omitempty{{end}}"`
+    {{- end}}
+}
+
+func {{.Name}}(
+{{- range .Fields}}
+{{- if .Flag.IsRequired}}
+    {{.ParamName}} {{.FieldType}},
+{{- end -}}
+{{- end}}
+) *{{.Name}}Builder {
+    return &{{.Name}}Builder {
+        {{- range.Fields}}
+            {{- if .Flag.IsRequired}}
+                {{.Name}}: {{.ParamName}},
+            {{- end -}}
+        {{- end}}
+    }
+}
+
+{{- range .Fields}}
+    func (b *{{$.Name}}Builder) Set{{.Name}}({{.ParamName}} {{.FieldType}}) *{{$.Name}}Builder {
+        b.{{.Name}} = {{if not .Flag.IsRequired}}&{{end}}{{.ParamName}}
+        return b
+    }
+{{- end -}}

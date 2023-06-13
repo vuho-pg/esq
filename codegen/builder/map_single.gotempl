@@ -1,0 +1,43 @@
+package esq
+
+
+type {{.Name}}InnerBuilder struct {
+{{- range .InnerType.Fields}}
+    {{.Name}}_ {{if .Flag.IsArr}}[]{{end}}{{if not .Flag.IsRequired}}*{{end}}{{.FieldType}} `json:"{{.JsonTag}}{{if not .Flag.IsRequired}},omitempty{{end}}"`
+{{- end}}
+}
+
+type {{.Name}}Builder struct {
+    fieldName string
+    {{.Name}} map[string]*{{.Name}}InnerBuilder `json:"{{.JsonTag}}"`
+}
+
+func {{.Name}} (
+    _fieldName string,
+{{- range .InnerType.Fields}}
+    {{- if .Flag.IsRequired}}
+    {{.ParamName}} {{if .Flag.IsArr}}[]{{end}}{{.FieldType}},
+    {{- end}}
+{{- end}}
+) *{{.Name}}Builder {
+    return &{{.Name}}Builder {
+        fieldName: _fieldName,
+        {{.Name}}: map[string]*{{.Name}}InnerBuilder{
+            _fieldName: {
+        {{- range .InnerType.Fields}}
+            {{- if .Flag.IsRequired}}
+                {{.Name}}_: {{.ParamName}},
+            {{- end}}
+        {{- end}}
+            },
+        },
+    }
+}
+
+{{range .InnerType.Fields}}
+func ({{$.ReceiverName}} *{{$.Name}}Builder) {{.Name}}({{.ParamName}} {{if .Flag.IsArr}}...{{end}}{{.FieldType}}) *{{$.Name}}Builder {
+    {{$.ReceiverName}}.{{$.Name}}[{{$.ReceiverName}}.fieldName].{{.Name}}_ = {{if not .Flag.IsRequired}}&{{end}}{{.ParamName}}
+    return {{$.ReceiverName}}
+}
+
+{{- end}}

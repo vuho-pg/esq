@@ -1,124 +1,134 @@
 package esq
 
-type QueryStringBuilder struct {
-    Query string `json:"query"`
-    DefaultField *string `json:"default_field,omitempty"`
-    AllowLeadingWildcard *bool `json:"allow_leading_wildcard,omitempty"`
-    AnalyzeWildcard *bool `json:"analyze_wildcard,omitempty"`
-    Analyzer *string `json:"analyzer,omitempty"`
-    AutoGenerateSynonymsPhraseQuery *bool `json:"auto_generate_synonyms_phrase_query,omitempty"`
-    Boost *float64 `json:"boost,omitempty"`
-    DefaultOperator *string `json:"default_operator,omitempty"`
-    EnablePositionIncrements *bool `json:"enable_position_increments,omitempty"`
-    Fields *[]string `json:"fields,omitempty"`
-    Fuzziness *string `json:"fuzziness,omitempty"`
-    FuzzyMaxExpansions *int `json:"fuzzy_max_expansions,omitempty"`
-    FuzzyPrefixLength *int `json:"fuzzy_prefix_length,omitempty"`
-    FuzzyTranspositions *bool `json:"fuzzy_transpositions,omitempty"`
-    Lenient *bool `json:"lenient,omitempty"`
-    MaxDeterminizedStates *int `json:"max_determinized_states,omitempty"`
-    MinimumShouldMatch *string `json:"minimum_should_match,omitempty"`
-    QuoteAnalyzer *string `json:"quote_analyzer,omitempty"`
-    PhraseSlop *int `json:"phrase_slop,omitempty"`
-    QuoteFieldSuffix *string `json:"quote_field_suffix,omitempty"`
-    Rewrite *string `json:"rewrite,omitempty"`
-    TimeZone *string `json:"time_zone,omitempty"`
+type QueryStringInnerBuilder struct {
+	Query_                           string    `json:"query"`
+	DefaultField_                    *string   `json:"default_field,omitempty"`
+	AllowLeadingWildcard_            *bool     `json:"allow_leading_wildcard,omitempty"`
+	AnalyzeWildcard_                 *bool     `json:"analyze_wildcard,omitempty"`
+	Analyzer_                        *string   `json:"analyzer,omitempty"`
+	AutoGenerateSynonymsPhraseQuery_ *bool     `json:"auto_generate_synonyms_phrase_query,omitempty"`
+	Boost_                           *float64  `json:"boost,omitempty"`
+	DefaultOperator_                 *string   `json:"default_operator,omitempty"`
+	EnablePositionIncrements_        *bool     `json:"enable_position_increments,omitempty"`
+	Fields_                          []*string `json:"fields,omitempty"`
+	Fuzziness_                       *string   `json:"fuzziness,omitempty"`
+	FuzzyMaxExpansions_              *int      `json:"fuzzy_max_expansions,omitempty"`
+	FuzzyPrefixLength_               *int      `json:"fuzzy_prefix_length,omitempty"`
+	FuzzyTranspositions_             *bool     `json:"fuzzy_transpositions,omitempty"`
+	Lenient_                         *bool     `json:"lenient,omitempty"`
+	MaxDeterminizedStates_           *int      `json:"max_determinized_states,omitempty"`
+	MinimumShouldMatch_              *string   `json:"minimum_should_match,omitempty"`
+	QuoteAnalyzer_                   *string   `json:"quote_analyzer,omitempty"`
+	PhraseSlop_                      *int      `json:"phrase_slop,omitempty"`
+	QuoteFieldSuffix_                *string   `json:"quote_field_suffix,omitempty"`
+	Rewrite_                         *string   `json:"rewrite,omitempty"`
+	TimeZone_                        *string   `json:"time_zone,omitempty"`
 }
-func (q *QueryStringBuilder) IsQuery() {}
 
+type QueryStringBuilder struct {
+	fieldName   string
+	QueryString map[string]*QueryStringInnerBuilder `json:"query_string"`
+}
 
 func QueryString(
-_query string,
+	_fieldName string,
+	_query string,
 ) *QueryStringBuilder {
-    return &QueryStringBuilder{
-       Query: _query,
-    }
+	return &QueryStringBuilder{
+		fieldName: _fieldName,
+		QueryString: map[string]*QueryStringInnerBuilder{
+			_fieldName: {
+				Query_: _query,
+			},
+		},
+	}
 }
-func (q *QueryStringBuilder) SetQuery(_query string) *QueryStringBuilder {
-    q.Query = _query
-    return q
+
+func (queryString *QueryStringBuilder) Query(_query string) *QueryStringBuilder {
+	queryString.QueryString[queryString.fieldName].Query_ = _query
+	return queryString
 }
-func (q *QueryStringBuilder) SetDefaultField(_defaultField string) *QueryStringBuilder {
-    q.DefaultField = &_defaultField
-    return q
+func (queryString *QueryStringBuilder) DefaultField(_defaultField string) *QueryStringBuilder {
+	queryString.QueryString[queryString.fieldName].DefaultField_ = &_defaultField
+	return queryString
 }
-func (q *QueryStringBuilder) SetAllowLeadingWildcard(_allowLeadingWildcard bool) *QueryStringBuilder {
-    q.AllowLeadingWildcard = &_allowLeadingWildcard
-    return q
+func (queryString *QueryStringBuilder) AllowLeadingWildcard(_allowLeadingWildcard bool) *QueryStringBuilder {
+	queryString.QueryString[queryString.fieldName].AllowLeadingWildcard_ = &_allowLeadingWildcard
+	return queryString
 }
-func (q *QueryStringBuilder) SetAnalyzeWildcard(_analyzeWildcard bool) *QueryStringBuilder {
-    q.AnalyzeWildcard = &_analyzeWildcard
-    return q
+func (queryString *QueryStringBuilder) AnalyzeWildcard(_analyzeWildcard bool) *QueryStringBuilder {
+	queryString.QueryString[queryString.fieldName].AnalyzeWildcard_ = &_analyzeWildcard
+	return queryString
 }
-func (q *QueryStringBuilder) SetAnalyzer(_analyzer string) *QueryStringBuilder {
-    q.Analyzer = &_analyzer
-    return q
+func (queryString *QueryStringBuilder) Analyzer(_analyzer string) *QueryStringBuilder {
+	queryString.QueryString[queryString.fieldName].Analyzer_ = &_analyzer
+	return queryString
 }
-func (q *QueryStringBuilder) SetAutoGenerateSynonymsPhraseQuery(_autoGenerateSynonymsPhraseQuery bool) *QueryStringBuilder {
-    q.AutoGenerateSynonymsPhraseQuery = &_autoGenerateSynonymsPhraseQuery
-    return q
+func (queryString *QueryStringBuilder) AutoGenerateSynonymsPhraseQuery(_autoGenerateSynonymsPhraseQuery bool) *QueryStringBuilder {
+	queryString.QueryString[queryString.fieldName].AutoGenerateSynonymsPhraseQuery_ = &_autoGenerateSynonymsPhraseQuery
+	return queryString
 }
-func (q *QueryStringBuilder) SetBoost(_boost float64) *QueryStringBuilder {
-    q.Boost = &_boost
-    return q
+func (queryString *QueryStringBuilder) Boost(_boost float64) *QueryStringBuilder {
+	queryString.QueryString[queryString.fieldName].Boost_ = &_boost
+	return queryString
 }
-func (q *QueryStringBuilder) SetDefaultOperator(_defaultOperator string) *QueryStringBuilder {
-    q.DefaultOperator = &_defaultOperator
-    return q
+func (queryString *QueryStringBuilder) DefaultOperator(_defaultOperator string) *QueryStringBuilder {
+	queryString.QueryString[queryString.fieldName].DefaultOperator_ = &_defaultOperator
+	return queryString
 }
-func (q *QueryStringBuilder) SetEnablePositionIncrements(_enablePositionIncrements bool) *QueryStringBuilder {
-    q.EnablePositionIncrements = &_enablePositionIncrements
-    return q
+func (queryString *QueryStringBuilder) EnablePositionIncrements(_enablePositionIncrements bool) *QueryStringBuilder {
+	queryString.QueryString[queryString.fieldName].EnablePositionIncrements_ = &_enablePositionIncrements
+	return queryString
 }
-func (q *QueryStringBuilder) SetFields(_fields ...string) *QueryStringBuilder {
-    q.Fields = &_fields
-    return q
+func (queryString *QueryStringBuilder) Fields(_fields ...string) *QueryStringBuilder {
+	queryString.QueryString[queryString.fieldName].Fields_ = &_fields
+	return queryString
 }
-func (q *QueryStringBuilder) SetFuzziness(_fuzziness string) *QueryStringBuilder {
-    q.Fuzziness = &_fuzziness
-    return q
+func (queryString *QueryStringBuilder) Fuzziness(_fuzziness string) *QueryStringBuilder {
+	queryString.QueryString[queryString.fieldName].Fuzziness_ = &_fuzziness
+	return queryString
 }
-func (q *QueryStringBuilder) SetFuzzyMaxExpansions(_fuzzyMaxExpansions int) *QueryStringBuilder {
-    q.FuzzyMaxExpansions = &_fuzzyMaxExpansions
-    return q
+func (queryString *QueryStringBuilder) FuzzyMaxExpansions(_fuzzyMaxExpansions int) *QueryStringBuilder {
+	queryString.QueryString[queryString.fieldName].FuzzyMaxExpansions_ = &_fuzzyMaxExpansions
+	return queryString
 }
-func (q *QueryStringBuilder) SetFuzzyPrefixLength(_fuzzyPrefixLength int) *QueryStringBuilder {
-    q.FuzzyPrefixLength = &_fuzzyPrefixLength
-    return q
+func (queryString *QueryStringBuilder) FuzzyPrefixLength(_fuzzyPrefixLength int) *QueryStringBuilder {
+	queryString.QueryString[queryString.fieldName].FuzzyPrefixLength_ = &_fuzzyPrefixLength
+	return queryString
 }
-func (q *QueryStringBuilder) SetFuzzyTranspositions(_fuzzyTranspositions bool) *QueryStringBuilder {
-    q.FuzzyTranspositions = &_fuzzyTranspositions
-    return q
+func (queryString *QueryStringBuilder) FuzzyTranspositions(_fuzzyTranspositions bool) *QueryStringBuilder {
+	queryString.QueryString[queryString.fieldName].FuzzyTranspositions_ = &_fuzzyTranspositions
+	return queryString
 }
-func (q *QueryStringBuilder) SetLenient(_lenient bool) *QueryStringBuilder {
-    q.Lenient = &_lenient
-    return q
+func (queryString *QueryStringBuilder) Lenient(_lenient bool) *QueryStringBuilder {
+	queryString.QueryString[queryString.fieldName].Lenient_ = &_lenient
+	return queryString
 }
-func (q *QueryStringBuilder) SetMaxDeterminizedStates(_maxDeterminizedStates int) *QueryStringBuilder {
-    q.MaxDeterminizedStates = &_maxDeterminizedStates
-    return q
+func (queryString *QueryStringBuilder) MaxDeterminizedStates(_maxDeterminizedStates int) *QueryStringBuilder {
+	queryString.QueryString[queryString.fieldName].MaxDeterminizedStates_ = &_maxDeterminizedStates
+	return queryString
 }
-func (q *QueryStringBuilder) SetMinimumShouldMatch(_minimumShouldMatch string) *QueryStringBuilder {
-    q.MinimumShouldMatch = &_minimumShouldMatch
-    return q
+func (queryString *QueryStringBuilder) MinimumShouldMatch(_minimumShouldMatch string) *QueryStringBuilder {
+	queryString.QueryString[queryString.fieldName].MinimumShouldMatch_ = &_minimumShouldMatch
+	return queryString
 }
-func (q *QueryStringBuilder) SetQuoteAnalyzer(_quoteAnalyzer string) *QueryStringBuilder {
-    q.QuoteAnalyzer = &_quoteAnalyzer
-    return q
+func (queryString *QueryStringBuilder) QuoteAnalyzer(_quoteAnalyzer string) *QueryStringBuilder {
+	queryString.QueryString[queryString.fieldName].QuoteAnalyzer_ = &_quoteAnalyzer
+	return queryString
 }
-func (q *QueryStringBuilder) SetPhraseSlop(_phraseSlop int) *QueryStringBuilder {
-    q.PhraseSlop = &_phraseSlop
-    return q
+func (queryString *QueryStringBuilder) PhraseSlop(_phraseSlop int) *QueryStringBuilder {
+	queryString.QueryString[queryString.fieldName].PhraseSlop_ = &_phraseSlop
+	return queryString
 }
-func (q *QueryStringBuilder) SetQuoteFieldSuffix(_quoteFieldSuffix string) *QueryStringBuilder {
-    q.QuoteFieldSuffix = &_quoteFieldSuffix
-    return q
+func (queryString *QueryStringBuilder) QuoteFieldSuffix(_quoteFieldSuffix string) *QueryStringBuilder {
+	queryString.QueryString[queryString.fieldName].QuoteFieldSuffix_ = &_quoteFieldSuffix
+	return queryString
 }
-func (q *QueryStringBuilder) SetRewrite(_rewrite string) *QueryStringBuilder {
-    q.Rewrite = &_rewrite
-    return q
+func (queryString *QueryStringBuilder) Rewrite(_rewrite string) *QueryStringBuilder {
+	queryString.QueryString[queryString.fieldName].Rewrite_ = &_rewrite
+	return queryString
 }
-func (q *QueryStringBuilder) SetTimeZone(_timeZone string) *QueryStringBuilder {
-    q.TimeZone = &_timeZone
-    return q
+func (queryString *QueryStringBuilder) TimeZone(_timeZone string) *QueryStringBuilder {
+	queryString.QueryString[queryString.fieldName].TimeZone_ = &_timeZone
+	return queryString
 }
