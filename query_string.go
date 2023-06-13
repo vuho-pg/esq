@@ -1,28 +1,28 @@
 package esq
 
 type QueryStringInnerBuilder struct {
-	Query_                           string    `json:"query"`
-	DefaultField_                    *string   `json:"default_field,omitempty"`
-	AllowLeadingWildcard_            *bool     `json:"allow_leading_wildcard,omitempty"`
-	AnalyzeWildcard_                 *bool     `json:"analyze_wildcard,omitempty"`
-	Analyzer_                        *string   `json:"analyzer,omitempty"`
-	AutoGenerateSynonymsPhraseQuery_ *bool     `json:"auto_generate_synonyms_phrase_query,omitempty"`
-	Boost_                           *float64  `json:"boost,omitempty"`
-	DefaultOperator_                 *string   `json:"default_operator,omitempty"`
-	EnablePositionIncrements_        *bool     `json:"enable_position_increments,omitempty"`
-	Fields_                          []*string `json:"fields,omitempty"`
-	Fuzziness_                       *string   `json:"fuzziness,omitempty"`
-	FuzzyMaxExpansions_              *int      `json:"fuzzy_max_expansions,omitempty"`
-	FuzzyPrefixLength_               *int      `json:"fuzzy_prefix_length,omitempty"`
-	FuzzyTranspositions_             *bool     `json:"fuzzy_transpositions,omitempty"`
-	Lenient_                         *bool     `json:"lenient,omitempty"`
-	MaxDeterminizedStates_           *int      `json:"max_determinized_states,omitempty"`
-	MinimumShouldMatch_              *string   `json:"minimum_should_match,omitempty"`
-	QuoteAnalyzer_                   *string   `json:"quote_analyzer,omitempty"`
-	PhraseSlop_                      *int      `json:"phrase_slop,omitempty"`
-	QuoteFieldSuffix_                *string   `json:"quote_field_suffix,omitempty"`
-	Rewrite_                         *string   `json:"rewrite,omitempty"`
-	TimeZone_                        *string   `json:"time_zone,omitempty"`
+	Query_                           string   `json:"query"`
+	DefaultField_                    *string  `json:"default_field,omitempty"`
+	AllowLeadingWildcard_            *bool    `json:"allow_leading_wildcard,omitempty"`
+	AnalyzeWildcard_                 *bool    `json:"analyze_wildcard,omitempty"`
+	Analyzer_                        *string  `json:"analyzer,omitempty"`
+	AutoGenerateSynonymsPhraseQuery_ *bool    `json:"auto_generate_synonyms_phrase_query,omitempty"`
+	Boost_                           *float64 `json:"boost,omitempty"`
+	DefaultOperator_                 *string  `json:"default_operator,omitempty"`
+	EnablePositionIncrements_        *bool    `json:"enable_position_increments,omitempty"`
+	Fields_                          []string `json:"fields,omitempty"`
+	Fuzziness_                       *string  `json:"fuzziness,omitempty"`
+	FuzzyMaxExpansions_              *int     `json:"fuzzy_max_expansions,omitempty"`
+	FuzzyPrefixLength_               *int     `json:"fuzzy_prefix_length,omitempty"`
+	FuzzyTranspositions_             *bool    `json:"fuzzy_transpositions,omitempty"`
+	Lenient_                         *bool    `json:"lenient,omitempty"`
+	MaxDeterminizedStates_           *int     `json:"max_determinized_states,omitempty"`
+	MinimumShouldMatch_              *string  `json:"minimum_should_match,omitempty"`
+	QuoteAnalyzer_                   *string  `json:"quote_analyzer,omitempty"`
+	PhraseSlop_                      *int     `json:"phrase_slop,omitempty"`
+	QuoteFieldSuffix_                *string  `json:"quote_field_suffix,omitempty"`
+	Rewrite_                         *string  `json:"rewrite,omitempty"`
+	TimeZone_                        *string  `json:"time_zone,omitempty"`
 }
 
 type QueryStringBuilder struct {
@@ -81,7 +81,7 @@ func (queryString *QueryStringBuilder) EnablePositionIncrements(_enablePositionI
 	return queryString
 }
 func (queryString *QueryStringBuilder) Fields(_fields ...string) *QueryStringBuilder {
-	queryString.QueryString[queryString.fieldName].Fields_ = &_fields
+	queryString.QueryString[queryString.fieldName].Fields_ = _fields
 	return queryString
 }
 func (queryString *QueryStringBuilder) Fuzziness(_fuzziness string) *QueryStringBuilder {

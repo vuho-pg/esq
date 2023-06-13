@@ -1,19 +1,19 @@
 package esq
 
 type SimpleQueryStringInnerBuilder struct {
-	Query_                           string    `json:"query"`
-	Fields_                          []*string `json:"fields,omitempty"`
-	DefaultOperator_                 *string   `json:"default_operator,omitempty"`
-	AnalyzeWildcard_                 *bool     `json:"analyze_wildcard,omitempty"`
-	Analyzer_                        *string   `json:"analyzer,omitempty"`
-	AutoGenerateSynonymsPhraseQuery_ *bool     `json:"auto_generate_synonyms_phrase_query,omitempty"`
-	Flags_                           *string   `json:"flags,omitempty"`
-	FuzzyMaxExpansions_              *int      `json:"fuzzy_max_expansions,omitempty"`
-	FuzzyPrefixLength_               *int      `json:"fuzzy_prefix_length,omitempty"`
-	FuzzyTranspositions_             *bool     `json:"fuzzy_transpositions,omitempty"`
-	Lenient_                         *bool     `json:"lenient,omitempty"`
-	MinimumShouldMatch_              *string   `json:"minimum_should_match,omitempty"`
-	QuoteFieldSuffix_                *string   `json:"quote_field_suffix,omitempty"`
+	Query_                           string   `json:"query"`
+	Fields_                          []string `json:"fields,omitempty"`
+	DefaultOperator_                 *string  `json:"default_operator,omitempty"`
+	AnalyzeWildcard_                 *bool    `json:"analyze_wildcard,omitempty"`
+	Analyzer_                        *string  `json:"analyzer,omitempty"`
+	AutoGenerateSynonymsPhraseQuery_ *bool    `json:"auto_generate_synonyms_phrase_query,omitempty"`
+	Flags_                           *string  `json:"flags,omitempty"`
+	FuzzyMaxExpansions_              *int     `json:"fuzzy_max_expansions,omitempty"`
+	FuzzyPrefixLength_               *int     `json:"fuzzy_prefix_length,omitempty"`
+	FuzzyTranspositions_             *bool    `json:"fuzzy_transpositions,omitempty"`
+	Lenient_                         *bool    `json:"lenient,omitempty"`
+	MinimumShouldMatch_              *string  `json:"minimum_should_match,omitempty"`
+	QuoteFieldSuffix_                *string  `json:"quote_field_suffix,omitempty"`
 }
 
 type SimpleQueryStringBuilder struct {
@@ -40,7 +40,7 @@ func (simpleQueryString *SimpleQueryStringBuilder) Query(_query string) *SimpleQ
 	return simpleQueryString
 }
 func (simpleQueryString *SimpleQueryStringBuilder) Fields(_fields ...string) *SimpleQueryStringBuilder {
-	simpleQueryString.SimpleQueryString[simpleQueryString.fieldName].Fields_ = &_fields
+	simpleQueryString.SimpleQueryString[simpleQueryString.fieldName].Fields_ = _fields
 	return simpleQueryString
 }
 func (simpleQueryString *SimpleQueryStringBuilder) DefaultOperator(_defaultOperator string) *SimpleQueryStringBuilder {
