@@ -1,18 +1,31 @@
 package esq
 
-type {{.Name}}Builder common.GenericMapType[{{.KeyType}}, {{.ValueType}}]
-
-
-func {{.Name}}() {{.Name}}Builder {
-    return make({{.Name}}Builder)
+type {{.Name}}Builder struct {
+    {{.Name}} map[{{.KeyType}}]{{.ValueType}} `json:"{{.JsonTag}}"`
 }
 
-func ({{$.ReceiverName}} {{$.Name}}Builder) Set(key {{.KeyType}}, value {{.ValueType}}) {{$.Name}}Builder {
-    {{$.ReceiverName}}[key] = value
+
+func {{.Name}}({{ if .IsSingle}}key {{.KeyType}}, value {{.ValueType}} {{end}}) *{{.Name}}Builder {
+    return &{{.Name}}Builder {
+        {{.Name}}: {{if .IsSingle -}}
+            map[{{.KeyType}}]{{.ValueType}}{
+                key: value,
+            }
+            {{- else -}}
+            make(map[{{.KeyType}}]{{.ValueType}})
+            {{- end}},
+
+    }
+}
+
+{{if not .IsSingle}}
+func ({{$.ReceiverName}} *{{$.Name}}Builder) {{.SetFunc}}(key {{.KeyType}}, value {{.ValueType}}) *{{$.Name}}Builder {
+    {{$.ReceiverName}}.{{.Name}}[key] = value
     return {{$.ReceiverName}}
 }
+{{end}}
 
 {{- range .Methods}}
-func ({{$.ReceiverName}} {{$.Name}}Builder) {{.}}() {}
+func ({{$.ReceiverName}} *{{$.Name}}Builder) {{.}}() {}
 {{- end}}
 

@@ -4,10 +4,12 @@ type Builder interface {
 	Build() error
 }
 
-func main() {
+func buildInterface() {
 	CreateType(
 		Interface("Query").Method("IsQuery"))
-	// TODO: Compound query
+}
+
+func buildCompound() {
 	CreateType(
 		Type("Bool",
 			Field("Must", "[]Query"),
@@ -18,23 +20,45 @@ func main() {
 			Field("Boost", "float64"),
 		).Method("IsQuery"),
 	)
-	// Full text queries
+}
+
+func buildFullText() {
+	matchField := Type("MatchField",
+		Field("Query", "any").Require(),
+		Field("Analyzer", "string"),
+		Field("AutoGenerateSynonymsPhraseQuery", "bool"),
+		Field("Fuzziness", "int"),
+		Field("MaxExpansions", "int"),
+		Field("PrefixLength", "int"),
+		Field("FuzzyTranspositions", "bool"),
+		Field("FuzzyRewrite", "string"),
+		Field("Lenient", "bool"),
+		Field("Operator", "string"),
+		Field("MinimumShouldMatch", "string"),
+		Field("ZeroTermsQuery", "string"),
+	).Method("IsQuery")
+	matchPhrase := Type("MatchPhraseField",
+		Field("Query", "string").Require(),
+		Field("Analyzer", "string"),
+		Field("ZeroTermsQuery", "string")).Method("IsQuery")
+	matchPhrasePrefix := Type("MatchPhrasePrefixField",
+		Field("Query", "string").Require(),
+		Field("Analyzer", "string"),
+		Field("MaxExpansions", "int"),
+		Field("Slop", "int"),
+		Field("ZeroTermsQuery", "string"),
+	).Method("IsQuery")
+	combinedField := Type("CombinedFieldsField",
+		Field("Fields", "[]string").Require(),
+		Field("Query", "string").Require(),
+		Field("AutoGenerateSynonymsPhraseQuery", "bool"),
+		Field("Operator", "string"),
+		Field("MinimumShouldMatch", "string"),
+		Field("ZeroTermsQuery", "string"),
+	).Method("IsQuery")
 	CreateType(
-		// TODO: Interval
-		Type("Match",
-			Field("Query", "any").Require(),
-			Field("Analyzer", "string"),
-			Field("AutoGenerateSynonymsPhraseQuery", "bool"),
-			Field("Fuzziness", "int"),
-			Field("MaxExpansions", "int"),
-			Field("PrefixLength", "int"),
-			Field("FuzzyTranspositions", "bool"),
-			Field("FuzzyRewrite", "string"),
-			Field("Lenient", "bool"),
-			Field("Operator", "string"),
-			Field("MinimumShouldMatch", "string"),
-			Field("ZeroTermsQuery", "string"),
-		).Method("IsQuery"),
+		matchField,
+		WrapStruct("Match", matchField),
 		Type("Term",
 			Field("Value", "string").Require(),
 			Field("Boost", "float64"),
@@ -47,32 +71,12 @@ func main() {
 			Field("LTE", "any"),
 			Field("Format", "string"),
 		).Method("IsQuery"),
-		Type("MatchPhraseField",
-			Field("Query", "string").Require(),
-			Field("Analyzer", "string"),
-			Field("ZeroTermsQuery", "string"),
-		).Method("IsQuery"),
-		MapType("MatchPhrase", "string", "*MatchPhraseFieldBuilder").
-			Method("IsQuery"),
-		Type("MatchPhrasePrefixField",
-			Field("Query", "string").Require(),
-			Field("Analyzer", "string"),
-			Field("MaxExpansions", "int"),
-			Field("Slop", "int"),
-			Field("ZeroTermsQuery", "string"),
-		).Method("IsQuery"),
-		MapType("MatchPhrasePrefix", "string", "*MatchPhrasePrefixFieldBuilder").
-			Method("IsQuery"),
-		Type("CombinedFieldsField",
-			Field("Fields", "[]string").Require(),
-			Field("Query", "string").Require(),
-			Field("AutoGenerateSynonymsPhraseQuery", "bool"),
-			Field("Operator", "string"),
-			Field("MinimumShouldMatch", "string"),
-			Field("ZeroTermsQuery", "string"),
-		).Method("IsQuery"),
-		MapType("CombinedFields", "string", "*CombinedFieldsFieldBuilder").
-			Method("IsQuery"),
+		matchPhrase,
+		WrapStruct("MatchPhrase", matchPhrase),
+		matchPhrasePrefix,
+		WrapStruct("MatchPhrasePrefix", matchPhrasePrefix),
+		combinedField,
+		WrapStruct("CombinedField", combinedField),
 		Type("MultiMatchField",
 			Field("Fields", "[]string").Require(),
 			Field("Query", "string").Require(),
@@ -131,6 +135,16 @@ func main() {
 			Field("QuoteFieldSuffix", "string"),
 		).Method("IsQuery"),
 	)
+}
+
+func main() {
+	buildInterface()
+	// TODO: Compound query
+	buildCompound()
+
+	// Full text queries
+	buildFullText()
+
 	// TODO: Geo query
 
 	for _, builder := range typeGenerators {

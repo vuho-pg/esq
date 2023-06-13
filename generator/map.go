@@ -23,6 +23,9 @@ type MapTypeGen struct {
 	KeyType      string
 	ValueType    string
 	ReceiverName string
+	JsonTag      string
+	SetFunc      string
+	IsSingle     bool
 	Methods      []string
 }
 
@@ -32,12 +35,24 @@ func MapType(name string, keyType string, valueType string) *MapTypeGen {
 		FileName:     "../" + stringy.New(name).SnakeCase().ToLower() + ".go",
 		KeyType:      keyType,
 		ValueType:    valueType,
+		JsonTag:      stringy.New(name).SnakeCase().ToLower(),
+		SetFunc:      "Set",
 		ReceiverName: strings.ToLower(name[:1]),
 	}
 }
 
 func (m *MapTypeGen) Method(methods ...string) *MapTypeGen {
 	m.Methods = append(m.Methods, methods...)
+	return m
+}
+
+func (m *MapTypeGen) SetFunction(name string) *MapTypeGen {
+	m.SetFunc = name
+	return m
+}
+
+func (m *MapTypeGen) Single() *MapTypeGen {
+	m.IsSingle = true
 	return m
 }
 
