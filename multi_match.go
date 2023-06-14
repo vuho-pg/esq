@@ -24,6 +24,8 @@ type MultiMatchBuilder struct {
 	MultiMatch map[string]*MultiMatchInnerBuilder `json:"multi_match"`
 }
 
+func (*MultiMatchBuilder) IsQuery() {}
+
 func MultiMatch(
 	_fieldName string,
 	_query string,

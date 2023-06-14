@@ -16,6 +16,8 @@ type MatchBoolPrefixBuilder struct {
 	MatchBoolPrefix map[string]*MatchBoolPrefixInnerBuilder `json:"match_bool_prefix"`
 }
 
+func (*MatchBoolPrefixBuilder) IsQuery() {}
+
 func MatchBoolPrefix(
 	_fieldName string,
 	_query string,

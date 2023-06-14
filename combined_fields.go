@@ -14,6 +14,8 @@ type CombinedFieldsBuilder struct {
 	CombinedFields map[string]*CombinedFieldsInnerBuilder `json:"combined_fields"`
 }
 
+func (*CombinedFieldsBuilder) IsQuery() {}
+
 func CombinedFields(
 	_fieldName string,
 	_fields []string,

@@ -21,6 +21,8 @@ type SimpleQueryStringBuilder struct {
 	SimpleQueryString map[string]*SimpleQueryStringInnerBuilder `json:"simple_query_string"`
 }
 
+func (*SimpleQueryStringBuilder) IsQuery() {}
+
 func SimpleQueryString(
 	_fieldName string,
 	_query string,

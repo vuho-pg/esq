@@ -20,6 +20,8 @@ type MatchBuilder struct {
 	Match     map[string]*MatchInnerBuilder `json:"match"`
 }
 
+func (*MatchBuilder) IsQuery() {}
+
 func Match(
 	_fieldName string,
 	_query string,

@@ -13,6 +13,8 @@ type MatchPhrasePrefixBuilder struct {
 	MatchPhrasePrefix map[string]*MatchPhrasePrefixInnerBuilder `json:"match_phrase_prefix"`
 }
 
+func (*MatchPhrasePrefixBuilder) IsQuery() {}
+
 func MatchPhrasePrefix(
 	_fieldName string,
 	_query string,

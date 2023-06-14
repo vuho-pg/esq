@@ -1,6 +1,9 @@
 package main
 
 func main() {
+	if err := interfaceBuild(); err != nil {
+		panic(err)
+	}
 	//compound
 	if err := compoundBuild(); err != nil {
 		panic(err)
@@ -12,6 +15,9 @@ func main() {
 	//geo
 	//shape
 	//joining
+	if err := joiningBuild(); err != nil {
+		panic(err)
+	}
 	//match all
 	//span
 	//specialized

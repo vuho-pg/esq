@@ -6,17 +6,17 @@ import (
 	"text/template"
 )
 
-var mapSingleTempl *template.Template
+var wrapStructTempl *template.Template
 
 func init() {
 	var err error
-	mapSingleTempl, err = template.ParseFiles("builder/map_single.gotempl")
+	wrapStructTempl, err = template.ParseFiles("builder/wrap_struct.gotempl")
 	if err != nil {
 		panic(err)
 	}
 }
 
-type MapBuilder struct {
+type WrapStructBuilder struct {
 	Name               string
 	FileName           string
 	ReceiverName       string
@@ -25,8 +25,8 @@ type MapBuilder struct {
 	InnerType          *StructBuilder
 }
 
-func Map(name string, inner *StructBuilder) *MapBuilder {
-	return &MapBuilder{
+func Wrap(name string, inner *StructBuilder) *WrapStructBuilder {
+	return &WrapStructBuilder{
 		Name:         name,
 		FileName:     "../" + stringy.New(name).SnakeCase().ToLower() + ".go",
 		ReceiverName: stringy.New(stringy.New(name).CamelCase()).LcFirst(),
@@ -35,17 +35,17 @@ func Map(name string, inner *StructBuilder) *MapBuilder {
 	}
 }
 
-func (m *MapBuilder) Implement(i *InterfaceBuilder) *MapBuilder {
+func (m *WrapStructBuilder) Implement(i *InterfaceBuilder) *WrapStructBuilder {
 	m.ImplementInterface = i
 	return m
 }
 
-func (m *MapBuilder) Build() error {
+func (m *WrapStructBuilder) Build() error {
 	file, err := os.Create(m.FileName)
 	if err != nil {
 		return err
 	}
 	defer file.Close()
 
-	return mapSingleTempl.Execute(file, m)
+	return wrapStructTempl.Execute(file, m)
 }

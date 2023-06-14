@@ -11,6 +11,8 @@ type MatchPhraseBuilder struct {
 	MatchPhrase map[string]*MatchPhraseInnerBuilder `json:"match_phrase"`
 }
 
+func (*MatchPhraseBuilder) IsQuery() {}
+
 func MatchPhrase(
 	_fieldName string,
 	_query string,

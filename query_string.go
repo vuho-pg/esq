@@ -30,6 +30,8 @@ type QueryStringBuilder struct {
 	QueryString map[string]*QueryStringInnerBuilder `json:"query_string"`
 }
 
+func (*QueryStringBuilder) IsQuery() {}
+
 func QueryString(
 	_fieldName string,
 	_query string,
