@@ -1,10 +1,10 @@
 package esq
 
 type NestedInnerBuilder struct {
-	Path_           string  `json:"path"`
-	Query_          Query   `json:"query"`
-	ScoreMode_      *string `json:"score_mode,omitempty"`
-	IgnoreUnmapped_ *bool   `json:"ignore_unmapped,omitempty"`
+	Path_           string     `json:"path"`
+	Query_          Query      `json:"query"`
+	ScoreMode_      *ScoreMode `json:"score_mode,omitempty"`
+	IgnoreUnmapped_ *bool      `json:"ignore_unmapped,omitempty"`
 }
 
 type NestedBuilder struct {
@@ -25,19 +25,19 @@ func Nested(
 	}
 }
 
-func (nested *NestedBuilder) Path(_path string) *NestedBuilder {
-	nested.Nested.Path_ = _path
-	return nested
+func (_nested *NestedBuilder) Path(_path string) *NestedBuilder {
+	_nested.Nested.Path_ = _path
+	return _nested
 }
-func (nested *NestedBuilder) Query(_query Query) *NestedBuilder {
-	nested.Nested.Query_ = _query
-	return nested
+func (_nested *NestedBuilder) Query(_query Query) *NestedBuilder {
+	_nested.Nested.Query_ = _query
+	return _nested
 }
-func (nested *NestedBuilder) ScoreMode(_scoreMode string) *NestedBuilder {
-	nested.Nested.ScoreMode_ = &_scoreMode
-	return nested
+func (_nested *NestedBuilder) ScoreMode(_scoreMode ScoreMode) *NestedBuilder {
+	_nested.Nested.ScoreMode_ = &_scoreMode
+	return _nested
 }
-func (nested *NestedBuilder) IgnoreUnmapped(_ignoreUnmapped bool) *NestedBuilder {
-	nested.Nested.IgnoreUnmapped_ = &_ignoreUnmapped
-	return nested
+func (_nested *NestedBuilder) IgnoreUnmapped(_ignoreUnmapped bool) *NestedBuilder {
+	_nested.Nested.IgnoreUnmapped_ = &_ignoreUnmapped
+	return _nested
 }

@@ -29,7 +29,7 @@ func Wrap(name string, inner *StructBuilder) *WrapStructBuilder {
 	return &WrapStructBuilder{
 		Name:         name,
 		FileName:     "../" + stringy.New(name).SnakeCase().ToLower() + ".go",
-		ReceiverName: stringy.New(stringy.New(name).CamelCase()).LcFirst(),
+		ReceiverName: "_" + stringy.New(stringy.New(name).CamelCase()).LcFirst(),
 		JsonTag:      stringy.New(name).SnakeCase().ToLower(),
 		InnerType:    inner,
 	}

@@ -1,6 +1,9 @@
 package main
 
 func main() {
+	if err := enumBuild(); err != nil {
+		panic(err)
+	}
 	if err := interfaceBuild(); err != nil {
 		panic(err)
 	}
@@ -22,4 +25,7 @@ func main() {
 	//span
 	//specialized
 	//term level
+	if err := termBuild(); err != nil {
+		panic(err)
+	}
 }

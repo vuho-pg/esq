@@ -7,7 +7,7 @@ func joiningBuild() error {
 		Wrap("Nested", Struct("Nested",
 			Field("Path").String().Required(),
 			Field("Query").Type("Query").Required(),
-			Field("ScoreMode").String(),
+			Field("ScoreMode").Enum(),
 			Field("IgnoreUnmapped").Bool(),
 		),
 		).Implement(queryInterface),

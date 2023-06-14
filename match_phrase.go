@@ -1,9 +1,9 @@
 package esq
 
 type MatchPhraseInnerBuilder struct {
-	Query_          string  `json:"query"`
-	Analyzer_       *string `json:"analyzer,omitempty"`
-	ZeroTermsQuery_ *string `json:"zero_terms_query,omitempty"`
+	Query_          string          `json:"query"`
+	Analyzer_       *string         `json:"analyzer,omitempty"`
+	ZeroTermsQuery_ *ZeroTermsQuery `json:"zero_terms_query,omitempty"`
 }
 
 type MatchPhraseBuilder struct {
@@ -27,15 +27,15 @@ func MatchPhrase(
 	}
 }
 
-func (matchPhrase *MatchPhraseBuilder) Query(_query string) *MatchPhraseBuilder {
-	matchPhrase.MatchPhrase[matchPhrase.fieldName].Query_ = _query
-	return matchPhrase
+func (_matchPhrase *MatchPhraseBuilder) Query(_query string) *MatchPhraseBuilder {
+	_matchPhrase.MatchPhrase[_matchPhrase.fieldName].Query_ = _query
+	return _matchPhrase
 }
-func (matchPhrase *MatchPhraseBuilder) Analyzer(_analyzer string) *MatchPhraseBuilder {
-	matchPhrase.MatchPhrase[matchPhrase.fieldName].Analyzer_ = &_analyzer
-	return matchPhrase
+func (_matchPhrase *MatchPhraseBuilder) Analyzer(_analyzer string) *MatchPhraseBuilder {
+	_matchPhrase.MatchPhrase[_matchPhrase.fieldName].Analyzer_ = &_analyzer
+	return _matchPhrase
 }
-func (matchPhrase *MatchPhraseBuilder) ZeroTermsQuery(_zeroTermsQuery string) *MatchPhraseBuilder {
-	matchPhrase.MatchPhrase[matchPhrase.fieldName].ZeroTermsQuery_ = &_zeroTermsQuery
-	return matchPhrase
+func (_matchPhrase *MatchPhraseBuilder) ZeroTermsQuery(_zeroTermsQuery ZeroTermsQuery) *MatchPhraseBuilder {
+	_matchPhrase.MatchPhrase[_matchPhrase.fieldName].ZeroTermsQuery_ = &_zeroTermsQuery
+	return _matchPhrase
 }

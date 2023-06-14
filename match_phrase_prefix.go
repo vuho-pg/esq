@@ -1,11 +1,11 @@
 package esq
 
 type MatchPhrasePrefixInnerBuilder struct {
-	Query_          string  `json:"query"`
-	Analyzer_       *string `json:"analyzer,omitempty"`
-	MaxExpansions_  *int    `json:"max_expansions,omitempty"`
-	Slop_           *int    `json:"slop,omitempty"`
-	ZeroTermsQuery_ *string `json:"zero_terms_query,omitempty"`
+	Query_          string          `json:"query"`
+	Analyzer_       *string         `json:"analyzer,omitempty"`
+	MaxExpansions_  *int            `json:"max_expansions,omitempty"`
+	Slop_           *int            `json:"slop,omitempty"`
+	ZeroTermsQuery_ *ZeroTermsQuery `json:"zero_terms_query,omitempty"`
 }
 
 type MatchPhrasePrefixBuilder struct {
@@ -29,23 +29,23 @@ func MatchPhrasePrefix(
 	}
 }
 
-func (matchPhrasePrefix *MatchPhrasePrefixBuilder) Query(_query string) *MatchPhrasePrefixBuilder {
-	matchPhrasePrefix.MatchPhrasePrefix[matchPhrasePrefix.fieldName].Query_ = _query
-	return matchPhrasePrefix
+func (_matchPhrasePrefix *MatchPhrasePrefixBuilder) Query(_query string) *MatchPhrasePrefixBuilder {
+	_matchPhrasePrefix.MatchPhrasePrefix[_matchPhrasePrefix.fieldName].Query_ = _query
+	return _matchPhrasePrefix
 }
-func (matchPhrasePrefix *MatchPhrasePrefixBuilder) Analyzer(_analyzer string) *MatchPhrasePrefixBuilder {
-	matchPhrasePrefix.MatchPhrasePrefix[matchPhrasePrefix.fieldName].Analyzer_ = &_analyzer
-	return matchPhrasePrefix
+func (_matchPhrasePrefix *MatchPhrasePrefixBuilder) Analyzer(_analyzer string) *MatchPhrasePrefixBuilder {
+	_matchPhrasePrefix.MatchPhrasePrefix[_matchPhrasePrefix.fieldName].Analyzer_ = &_analyzer
+	return _matchPhrasePrefix
 }
-func (matchPhrasePrefix *MatchPhrasePrefixBuilder) MaxExpansions(_maxExpansions int) *MatchPhrasePrefixBuilder {
-	matchPhrasePrefix.MatchPhrasePrefix[matchPhrasePrefix.fieldName].MaxExpansions_ = &_maxExpansions
-	return matchPhrasePrefix
+func (_matchPhrasePrefix *MatchPhrasePrefixBuilder) MaxExpansions(_maxExpansions int) *MatchPhrasePrefixBuilder {
+	_matchPhrasePrefix.MatchPhrasePrefix[_matchPhrasePrefix.fieldName].MaxExpansions_ = &_maxExpansions
+	return _matchPhrasePrefix
 }
-func (matchPhrasePrefix *MatchPhrasePrefixBuilder) Slop(_slop int) *MatchPhrasePrefixBuilder {
-	matchPhrasePrefix.MatchPhrasePrefix[matchPhrasePrefix.fieldName].Slop_ = &_slop
-	return matchPhrasePrefix
+func (_matchPhrasePrefix *MatchPhrasePrefixBuilder) Slop(_slop int) *MatchPhrasePrefixBuilder {
+	_matchPhrasePrefix.MatchPhrasePrefix[_matchPhrasePrefix.fieldName].Slop_ = &_slop
+	return _matchPhrasePrefix
 }
-func (matchPhrasePrefix *MatchPhrasePrefixBuilder) ZeroTermsQuery(_zeroTermsQuery string) *MatchPhrasePrefixBuilder {
-	matchPhrasePrefix.MatchPhrasePrefix[matchPhrasePrefix.fieldName].ZeroTermsQuery_ = &_zeroTermsQuery
-	return matchPhrasePrefix
+func (_matchPhrasePrefix *MatchPhrasePrefixBuilder) ZeroTermsQuery(_zeroTermsQuery ZeroTermsQuery) *MatchPhrasePrefixBuilder {
+	_matchPhrasePrefix.MatchPhrasePrefix[_matchPhrasePrefix.fieldName].ZeroTermsQuery_ = &_zeroTermsQuery
+	return _matchPhrasePrefix
 }

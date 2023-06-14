@@ -29,7 +29,7 @@ func Map(name string, inner *StructBuilder) *MapBuilder {
 	return &MapBuilder{
 		Name:         name,
 		FileName:     "../" + stringy.New(name).SnakeCase().ToLower() + ".go",
-		ReceiverName: stringy.New(stringy.New(name).CamelCase()).LcFirst(),
+		ReceiverName: "_" + stringy.New(stringy.New(name).CamelCase()).LcFirst(),
 		JsonTag:      stringy.New(name).SnakeCase().ToLower(),
 		InnerType:    inner,
 	}

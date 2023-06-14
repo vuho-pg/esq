@@ -35,8 +35,17 @@ func (f *FieldBuilder) Int() *FieldBuilder {
 	return f.Type("int")
 }
 
+func (f *FieldBuilder) Any() *FieldBuilder {
+	return f.Type("any")
+}
+
 func (f *FieldBuilder) Type(t string) *FieldBuilder {
 	f.FieldType = t
+	return f
+}
+
+func (f *FieldBuilder) Enum() *FieldBuilder {
+	f.FieldType = f.Name
 	return f
 }
 

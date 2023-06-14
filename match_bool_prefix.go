@@ -32,35 +32,35 @@ func MatchBoolPrefix(
 	}
 }
 
-func (matchBoolPrefix *MatchBoolPrefixBuilder) Query(_query string) *MatchBoolPrefixBuilder {
-	matchBoolPrefix.MatchBoolPrefix[matchBoolPrefix.fieldName].Query_ = _query
-	return matchBoolPrefix
+func (_matchBoolPrefix *MatchBoolPrefixBuilder) Query(_query string) *MatchBoolPrefixBuilder {
+	_matchBoolPrefix.MatchBoolPrefix[_matchBoolPrefix.fieldName].Query_ = _query
+	return _matchBoolPrefix
 }
-func (matchBoolPrefix *MatchBoolPrefixBuilder) Analyzer(_analyzer string) *MatchBoolPrefixBuilder {
-	matchBoolPrefix.MatchBoolPrefix[matchBoolPrefix.fieldName].Analyzer_ = &_analyzer
-	return matchBoolPrefix
+func (_matchBoolPrefix *MatchBoolPrefixBuilder) Analyzer(_analyzer string) *MatchBoolPrefixBuilder {
+	_matchBoolPrefix.MatchBoolPrefix[_matchBoolPrefix.fieldName].Analyzer_ = &_analyzer
+	return _matchBoolPrefix
 }
-func (matchBoolPrefix *MatchBoolPrefixBuilder) Fuzziness(_fuzziness string) *MatchBoolPrefixBuilder {
-	matchBoolPrefix.MatchBoolPrefix[matchBoolPrefix.fieldName].Fuzziness_ = &_fuzziness
-	return matchBoolPrefix
+func (_matchBoolPrefix *MatchBoolPrefixBuilder) Fuzziness(_fuzziness string) *MatchBoolPrefixBuilder {
+	_matchBoolPrefix.MatchBoolPrefix[_matchBoolPrefix.fieldName].Fuzziness_ = &_fuzziness
+	return _matchBoolPrefix
 }
-func (matchBoolPrefix *MatchBoolPrefixBuilder) MinimumShouldMatch(_minimumShouldMatch string) *MatchBoolPrefixBuilder {
-	matchBoolPrefix.MatchBoolPrefix[matchBoolPrefix.fieldName].MinimumShouldMatch_ = &_minimumShouldMatch
-	return matchBoolPrefix
+func (_matchBoolPrefix *MatchBoolPrefixBuilder) MinimumShouldMatch(_minimumShouldMatch string) *MatchBoolPrefixBuilder {
+	_matchBoolPrefix.MatchBoolPrefix[_matchBoolPrefix.fieldName].MinimumShouldMatch_ = &_minimumShouldMatch
+	return _matchBoolPrefix
 }
-func (matchBoolPrefix *MatchBoolPrefixBuilder) PrefixLength(_prefixLength int) *MatchBoolPrefixBuilder {
-	matchBoolPrefix.MatchBoolPrefix[matchBoolPrefix.fieldName].PrefixLength_ = &_prefixLength
-	return matchBoolPrefix
+func (_matchBoolPrefix *MatchBoolPrefixBuilder) PrefixLength(_prefixLength int) *MatchBoolPrefixBuilder {
+	_matchBoolPrefix.MatchBoolPrefix[_matchBoolPrefix.fieldName].PrefixLength_ = &_prefixLength
+	return _matchBoolPrefix
 }
-func (matchBoolPrefix *MatchBoolPrefixBuilder) MaxExpansions(_maxExpansions int) *MatchBoolPrefixBuilder {
-	matchBoolPrefix.MatchBoolPrefix[matchBoolPrefix.fieldName].MaxExpansions_ = &_maxExpansions
-	return matchBoolPrefix
+func (_matchBoolPrefix *MatchBoolPrefixBuilder) MaxExpansions(_maxExpansions int) *MatchBoolPrefixBuilder {
+	_matchBoolPrefix.MatchBoolPrefix[_matchBoolPrefix.fieldName].MaxExpansions_ = &_maxExpansions
+	return _matchBoolPrefix
 }
-func (matchBoolPrefix *MatchBoolPrefixBuilder) FuzzyTranspositions(_fuzzyTranspositions bool) *MatchBoolPrefixBuilder {
-	matchBoolPrefix.MatchBoolPrefix[matchBoolPrefix.fieldName].FuzzyTranspositions_ = &_fuzzyTranspositions
-	return matchBoolPrefix
+func (_matchBoolPrefix *MatchBoolPrefixBuilder) FuzzyTranspositions(_fuzzyTranspositions bool) *MatchBoolPrefixBuilder {
+	_matchBoolPrefix.MatchBoolPrefix[_matchBoolPrefix.fieldName].FuzzyTranspositions_ = &_fuzzyTranspositions
+	return _matchBoolPrefix
 }
-func (matchBoolPrefix *MatchBoolPrefixBuilder) FuzzyRewrite(_fuzzyRewrite string) *MatchBoolPrefixBuilder {
-	matchBoolPrefix.MatchBoolPrefix[matchBoolPrefix.fieldName].FuzzyRewrite_ = &_fuzzyRewrite
-	return matchBoolPrefix
+func (_matchBoolPrefix *MatchBoolPrefixBuilder) FuzzyRewrite(_fuzzyRewrite string) *MatchBoolPrefixBuilder {
+	_matchBoolPrefix.MatchBoolPrefix[_matchBoolPrefix.fieldName].FuzzyRewrite_ = &_fuzzyRewrite
+	return _matchBoolPrefix
 }

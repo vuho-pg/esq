@@ -47,7 +47,7 @@ func Struct(name string, fields ...*FieldBuilder) *StructBuilder {
 	return &StructBuilder{
 		Name:         name,
 		FileName:     "../" + stringy.New(name).SnakeCase().ToLower() + ".go",
-		ReceiverName: stringy.New(stringy.New(name).CamelCase()).LcFirst(),
+		ReceiverName: "_" + stringy.New(stringy.New(name).CamelCase()).LcFirst(),
 		Fields:       fields,
 	}
 }

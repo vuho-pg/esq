@@ -1,0 +1,10 @@
+package esq
+
+type {{.Name}} {{.Type}}
+
+
+const (
+{{range .Values -}}
+    {{$.BuildName .}} {{$.Name}} = {{$.BuildValue .}}
+{{end}}
+)

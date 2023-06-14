@@ -1,12 +1,12 @@
 package esq
 
 type CombinedFieldsInnerBuilder struct {
-	Fields_                          []string `json:"fields"`
-	Query_                           string   `json:"query"`
-	AutoGenerateSynonymsPhraseQuery_ *bool    `json:"auto_generate_synonyms_phrase_query,omitempty"`
-	Operator_                        *string  `json:"operator,omitempty"`
-	MinimumShouldMatch_              *string  `json:"minimum_should_match,omitempty"`
-	ZeroTermsQuery_                  *string  `json:"zero_terms_query,omitempty"`
+	Fields_                          []string        `json:"fields"`
+	Query_                           string          `json:"query"`
+	AutoGenerateSynonymsPhraseQuery_ *bool           `json:"auto_generate_synonyms_phrase_query,omitempty"`
+	Operator_                        *Operator       `json:"operator,omitempty"`
+	MinimumShouldMatch_              *string         `json:"minimum_should_match,omitempty"`
+	ZeroTermsQuery_                  *ZeroTermsQuery `json:"zero_terms_query,omitempty"`
 }
 
 type CombinedFieldsBuilder struct {
@@ -32,27 +32,27 @@ func CombinedFields(
 	}
 }
 
-func (combinedFields *CombinedFieldsBuilder) Fields(_fields ...string) *CombinedFieldsBuilder {
-	combinedFields.CombinedFields[combinedFields.fieldName].Fields_ = _fields
-	return combinedFields
+func (_combinedFields *CombinedFieldsBuilder) Fields(_fields ...string) *CombinedFieldsBuilder {
+	_combinedFields.CombinedFields[_combinedFields.fieldName].Fields_ = _fields
+	return _combinedFields
 }
-func (combinedFields *CombinedFieldsBuilder) Query(_query string) *CombinedFieldsBuilder {
-	combinedFields.CombinedFields[combinedFields.fieldName].Query_ = _query
-	return combinedFields
+func (_combinedFields *CombinedFieldsBuilder) Query(_query string) *CombinedFieldsBuilder {
+	_combinedFields.CombinedFields[_combinedFields.fieldName].Query_ = _query
+	return _combinedFields
 }
-func (combinedFields *CombinedFieldsBuilder) AutoGenerateSynonymsPhraseQuery(_autoGenerateSynonymsPhraseQuery bool) *CombinedFieldsBuilder {
-	combinedFields.CombinedFields[combinedFields.fieldName].AutoGenerateSynonymsPhraseQuery_ = &_autoGenerateSynonymsPhraseQuery
-	return combinedFields
+func (_combinedFields *CombinedFieldsBuilder) AutoGenerateSynonymsPhraseQuery(_autoGenerateSynonymsPhraseQuery bool) *CombinedFieldsBuilder {
+	_combinedFields.CombinedFields[_combinedFields.fieldName].AutoGenerateSynonymsPhraseQuery_ = &_autoGenerateSynonymsPhraseQuery
+	return _combinedFields
 }
-func (combinedFields *CombinedFieldsBuilder) Operator(_operator string) *CombinedFieldsBuilder {
-	combinedFields.CombinedFields[combinedFields.fieldName].Operator_ = &_operator
-	return combinedFields
+func (_combinedFields *CombinedFieldsBuilder) Operator(_operator Operator) *CombinedFieldsBuilder {
+	_combinedFields.CombinedFields[_combinedFields.fieldName].Operator_ = &_operator
+	return _combinedFields
 }
-func (combinedFields *CombinedFieldsBuilder) MinimumShouldMatch(_minimumShouldMatch string) *CombinedFieldsBuilder {
-	combinedFields.CombinedFields[combinedFields.fieldName].MinimumShouldMatch_ = &_minimumShouldMatch
-	return combinedFields
+func (_combinedFields *CombinedFieldsBuilder) MinimumShouldMatch(_minimumShouldMatch string) *CombinedFieldsBuilder {
+	_combinedFields.CombinedFields[_combinedFields.fieldName].MinimumShouldMatch_ = &_minimumShouldMatch
+	return _combinedFields
 }
-func (combinedFields *CombinedFieldsBuilder) ZeroTermsQuery(_zeroTermsQuery string) *CombinedFieldsBuilder {
-	combinedFields.CombinedFields[combinedFields.fieldName].ZeroTermsQuery_ = &_zeroTermsQuery
-	return combinedFields
+func (_combinedFields *CombinedFieldsBuilder) ZeroTermsQuery(_zeroTermsQuery ZeroTermsQuery) *CombinedFieldsBuilder {
+	_combinedFields.CombinedFields[_combinedFields.fieldName].ZeroTermsQuery_ = &_zeroTermsQuery
+	return _combinedFields
 }
