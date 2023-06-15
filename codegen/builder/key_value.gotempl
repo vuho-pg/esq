@@ -1,0 +1,12 @@
+package esq
+
+
+type {{.Name}}Builder map[{{.KeyType}}]{{.ValueType}}
+
+{{if .IsSingle}}
+func {{.Name}}(key_ {{.KeyType}}, value_ {{.ValueType}}) {{.Name}}Builder {
+    return {{.Name}}Builder{key_: value_}
+}
+{{else}}
+
+{{end}}

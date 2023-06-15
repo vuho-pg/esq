@@ -37,10 +37,12 @@ func init() {
 }
 
 type StructBuilder struct {
-	Name         string
-	FileName     string
-	ReceiverName string
-	Fields       []*FieldBuilder
+	Name               string
+	FileName           string
+	ReceiverName       string
+	Fields             []*FieldBuilder
+	ExtendStruct       []string
+	ImplementInterface *InterfaceBuilder
 }
 
 func Struct(name string, fields ...*FieldBuilder) *StructBuilder {
@@ -50,6 +52,16 @@ func Struct(name string, fields ...*FieldBuilder) *StructBuilder {
 		ReceiverName: "_" + stringy.New(stringy.New(name).CamelCase()).LcFirst(),
 		Fields:       fields,
 	}
+}
+
+func (s *StructBuilder) Implement(i *InterfaceBuilder) *StructBuilder {
+	s.ImplementInterface = i
+	return s
+}
+
+func (s *StructBuilder) Extend(structs ...string) *StructBuilder {
+	s.ExtendStruct = structs
+	return s
 }
 
 func (s *StructBuilder) Build() error {
