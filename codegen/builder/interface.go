@@ -25,7 +25,7 @@ type InterfaceBuilder struct {
 func Interface(name string) *InterfaceBuilder {
 	return &InterfaceBuilder{
 		Name:     name,
-		FileName: "../" + stringy.New(name).SnakeCase().ToLower() + ".go",
+		FileName: "../" + stringy.New(name).SnakeCase().ToLower() + ".gen.go",
 	}
 }
 

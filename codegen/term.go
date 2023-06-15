@@ -4,7 +4,7 @@ import . "github.com/vuho-pg/esq/codegen/builder"
 
 func termBuild() error {
 	return Run(
-		Wrap("Exist", Struct("Exist",
+		Wrap("Exists", Struct("Exists",
 			Field("Field").String().Required(),
 		)).Implement(queryInterface),
 		Map("Fuzzy", Struct("Fuzzy",

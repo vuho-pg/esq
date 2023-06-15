@@ -27,7 +27,7 @@ type EnumBuilder struct {
 func Enum(name string, t string) *EnumBuilder {
 	return &EnumBuilder{
 		Name:     name,
-		FileName: "../" + stringy.New(name).SnakeCase().ToLower() + ".go",
+		FileName: "../" + stringy.New(name).SnakeCase().ToLower() + ".gen.go",
 		Type:     t,
 		Values:   nil,
 	}

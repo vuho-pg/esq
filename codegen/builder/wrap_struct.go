@@ -28,7 +28,7 @@ type WrapStructBuilder struct {
 func Wrap(name string, inner *StructBuilder) *WrapStructBuilder {
 	return &WrapStructBuilder{
 		Name:         name,
-		FileName:     "../" + stringy.New(name).SnakeCase().ToLower() + ".go",
+		FileName:     "../" + stringy.New(name).SnakeCase().ToLower() + ".gen.go",
 		ReceiverName: "_" + stringy.New(stringy.New(name).CamelCase()).LcFirst(),
 		JsonTag:      stringy.New(name).SnakeCase().ToLower(),
 		InnerType:    inner,
