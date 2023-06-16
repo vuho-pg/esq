@@ -8,6 +8,7 @@ type SortValueBuilder struct {
 	Format_      *string      `json:"format,omitempty"`
 	Mode_        *SortMode    `json:"mode,omitempty"`
 	NumericType_ *NumericType `json:"numeric_type,omitempty"`
+	Missing_     *SortMissing `json:"missing,omitempty"`
 }
 
 func SortValue() *SortValueBuilder {
@@ -28,6 +29,10 @@ func (_sortValueBuilder *SortValueBuilder) Mode(_mode SortMode) *SortValueBuilde
 }
 func (_sortValueBuilder *SortValueBuilder) NumericType(_numericType NumericType) *SortValueBuilder {
 	_sortValueBuilder.NumericType_ = &_numericType
+	return _sortValueBuilder
+}
+func (_sortValueBuilder *SortValueBuilder) Missing(_missing SortMissing) *SortValueBuilder {
+	_sortValueBuilder.Missing_ = &_missing
 	return _sortValueBuilder
 }
 
