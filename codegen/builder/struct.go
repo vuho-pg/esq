@@ -21,10 +21,15 @@ func (f Flag) IsArr() bool {
 	return f&IsArr != 0
 }
 
+func (f Flag) IsForcePtr() bool {
+	return f&IsForcePtr != 0
+}
+
 const (
 	IsStruct Flag = 1 << iota
 	IsRequired
 	IsArr
+	IsForcePtr
 )
 
 var structTmp *template.Template
@@ -41,7 +46,7 @@ type StructBuilder struct {
 	FileName           string
 	ReceiverName       string
 	Fields             []*FieldBuilder
-	ExtendStruct       []string
+	ExtendBuilder      []string
 	ImplementInterface *InterfaceBuilder
 }
 
@@ -60,8 +65,12 @@ func (s *StructBuilder) Implement(i *InterfaceBuilder) *StructBuilder {
 }
 
 func (s *StructBuilder) Extend(structs ...string) *StructBuilder {
-	s.ExtendStruct = structs
+	s.ExtendBuilder = append(s.ExtendBuilder, structs...)
 	return s
+}
+
+func (s *StructBuilder) ParamName(name string) string {
+	return "_" + stringy.New(stringy.New(name).CamelCase()).LcFirst()
 }
 
 func (s *StructBuilder) Build() error {

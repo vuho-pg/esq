@@ -6,15 +6,21 @@ import (
 	"testing"
 )
 
-func TestSortValue(t *testing.T) {
+func TestSortNested(t *testing.T) {
 	q := Search().Query(
 		Nested("parent",
 			Bool().
 				Must(Range("parent.age").GTE(21)).
 				Filter(Nested("parent.child", Match("parent.child.name", "matt"))),
 		),
-
-	).Sort()
+	).Sort(
+		SortNested("parent").
+			Filter(Range("parent.age").GTE(21)).
+			Nested(
+				SortNested("parent.child").
+					Filter(Match("parent.child.name", "matt")),
+			),
+	)
 
 	j, err := json.MarshalIndent(q, "", "\t")
 	if err != nil {

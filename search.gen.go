@@ -3,31 +3,31 @@ package esq
 import "encoding/json"
 
 type SearchBuilder struct {
-	DocvalueFields_   []DocvalueFieldBuilder `json:"docvalue_fields,omitempty"`
-	Fields_           []FieldBuilder         `json:"fields,omitempty"`
-	Explain_          *bool                  `json:"explain,omitempty"`
-	From_             *int                   `json:"from,omitempty"`
-	MinScore_         *float64               `json:"min_score,omitempty"`
-	PIT_              *PITBuilder            `json:"pit,omitempty"`
-	Query_            *Query                 `json:"query,omitempty"`
-	SeqNoPrimaryTerm_ *bool                  `json:"seq_no_primary_term,omitempty"`
-	Size_             *int                   `json:"size,omitempty"`
-	Stats_            []string               `json:"stats,omitempty"`
-	TerminateAfter_   *int                   `json:"terminate_after,omitempty"`
-	Timeout_          *string                `json:"timeout,omitempty"`
-	Version_          *bool                  `json:"version,omitempty"`
-	Sort_             []SortValueBuilder     `json:"sort,omitempty"`
+	DocvalueFields_   []*DocvalueFieldBuilder `json:"docvalue_fields,omitempty"`
+	Fields_           []*FieldBuilder         `json:"fields,omitempty"`
+	Explain_          *bool                   `json:"explain,omitempty"`
+	From_             *int                    `json:"from,omitempty"`
+	MinScore_         *float64                `json:"min_score,omitempty"`
+	PIT_              *PITBuilder             `json:"pit,omitempty"`
+	Query_            *Query                  `json:"query,omitempty"`
+	SeqNoPrimaryTerm_ *bool                   `json:"seq_no_primary_term,omitempty"`
+	Size_             *int                    `json:"size,omitempty"`
+	Stats_            []string                `json:"stats,omitempty"`
+	TerminateAfter_   *int                    `json:"terminate_after,omitempty"`
+	Timeout_          *string                 `json:"timeout,omitempty"`
+	Version_          *bool                   `json:"version,omitempty"`
+	Sort_             []*SortNestedBuilder    `json:"sort,omitempty"`
 }
 
 func Search() *SearchBuilder {
 	return &SearchBuilder{}
 }
 
-func (_searchBuilder *SearchBuilder) DocvalueFields(_docvalueFields ...DocvalueFieldBuilder) *SearchBuilder {
+func (_searchBuilder *SearchBuilder) DocvalueFields(_docvalueFields ...*DocvalueFieldBuilder) *SearchBuilder {
 	_searchBuilder.DocvalueFields_ = _docvalueFields
 	return _searchBuilder
 }
-func (_searchBuilder *SearchBuilder) Fields(_fields ...FieldBuilder) *SearchBuilder {
+func (_searchBuilder *SearchBuilder) Fields(_fields ...*FieldBuilder) *SearchBuilder {
 	_searchBuilder.Fields_ = _fields
 	return _searchBuilder
 }
@@ -75,7 +75,7 @@ func (_searchBuilder *SearchBuilder) Version(_version bool) *SearchBuilder {
 	_searchBuilder.Version_ = &_version
 	return _searchBuilder
 }
-func (_searchBuilder *SearchBuilder) Sort(_sort ...SortValueBuilder) *SearchBuilder {
+func (_searchBuilder *SearchBuilder) Sort(_sort ...*SortNestedBuilder) *SearchBuilder {
 	_searchBuilder.Sort_ = _sort
 	return _searchBuilder
 }

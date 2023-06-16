@@ -64,3 +64,8 @@ func (f *FieldBuilder) Required() *FieldBuilder {
 	f.Flag |= IsRequired
 	return f
 }
+
+func (f *FieldBuilder) ForcePtr() *FieldBuilder {
+	f.Flag |= IsForcePtr
+	return f
+}

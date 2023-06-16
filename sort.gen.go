@@ -1,7 +1,7 @@
 package esq
 
-type SortBuilder map[string]string
+type SortBuilder map[string]*SortValueBuilder
 
-func Sort(key_ string, value_ string) SortBuilder {
+func Sort(key_ string, value_ *SortValueBuilder) SortBuilder {
 	return SortBuilder{key_: value_}
 }

@@ -3,11 +3,11 @@ package esq
 import "encoding/json"
 
 type {{.Name}}Builder struct {
-{{- range .ExtendStruct}}
-    {{.}}
+{{- range .ExtendBuilder}}
+    *{{.}}Builder
 {{- end}}
 {{- range .Fields}}
-    {{.Name}}_ {{if .Flag.IsArr}}[]{{end}}{{if and (not .Flag.IsRequired) (not .Flag.IsArr)}}*{{end}}{{.FieldType}} `json:"{{.JsonTag}}{{if not .Flag.IsRequired}},omitempty{{end}}"`
+    {{.Name}}_ {{if .Flag.IsArr}}[]{{end}}{{if or .Flag.IsForcePtr (and (not .Flag.IsRequired) (not .Flag.IsArr))}}*{{end}}{{.FieldType}} `json:"{{.JsonTag}}{{if not .Flag.IsRequired}},omitempty{{end}}"`
 {{- end}}
 }
 
@@ -36,12 +36,19 @@ return &{{.Name}}Builder {
 }
 
 {{range .Fields}}
-    func ({{$.ReceiverName}}Builder *{{$.Name}}Builder) {{.Name}}({{.ParamName}} {{if .Flag.IsArr}}...{{end}}{{.FieldType}}) *{{$.Name}}Builder {
+    func ({{$.ReceiverName}}Builder *{{$.Name}}Builder) {{.Name}}({{.ParamName}} {{if .Flag.IsArr}}...{{end}}{{if .Flag.IsForcePtr}}*{{end}}{{.FieldType}}) *{{$.Name}}Builder {
     {{$.ReceiverName}}Builder.{{.Name}}_ = {{if and (not .Flag.IsRequired) (not .Flag.IsArr)}}&{{end}}{{.ParamName}}
     return {{$.ReceiverName}}Builder
     }
 {{- end}}
 
+{{range .ExtendBuilder}}
+    func ({{$.ReceiverName}}Builder *{{$.Name}}Builder) {{.}}({{$.ParamName .}} *{{.}}Builder) *{{$.Name}}Builder {
+    {{$.ReceiverName}}Builder.{{.}}Builder = {{$.ParamName .}}
+    return {{$.ReceiverName}}Builder
+    }
+{{- end}}
+
 func ({{.ReceiverName}}Builder *{{.Name}}Builder) JSON() ([]byte, error) {
-    return json.Marshal({{.ReceiverName}}Builder)
+return json.Marshal({{.ReceiverName}}Builder)
 }

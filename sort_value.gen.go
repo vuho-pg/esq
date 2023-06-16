@@ -31,6 +31,11 @@ func (_sortValueBuilder *SortValueBuilder) NumericType(_numericType NumericType)
 	return _sortValueBuilder
 }
 
+func (_sortValueBuilder *SortValueBuilder) Nested(_nested *NestedBuilder) *SortValueBuilder {
+	_sortValueBuilder.NestedBuilder = _nested
+	return _sortValueBuilder
+}
+
 func (_sortValueBuilder *SortValueBuilder) JSON() ([]byte, error) {
 	return json.Marshal(_sortValueBuilder)
 }
