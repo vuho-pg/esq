@@ -27,3 +27,7 @@ func (_pITBuilder *PITBuilder) KeepAlive(_keepAlive string) *PITBuilder {
 func (_pITBuilder *PITBuilder) JSON() ([]byte, error) {
 	return json.Marshal(_pITBuilder)
 }
+
+func (_pITBuilder *PITBuilder) JSONIndent() ([]byte, error) {
+	return json.MarshalIndent(_pITBuilder, "", "\t")
+}

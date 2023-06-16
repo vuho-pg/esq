@@ -37,7 +37,7 @@ return &{{.Name}}Builder {
 
 {{range .Fields}}
     func ({{$.ReceiverName}}Builder *{{$.Name}}Builder) {{.Name}}({{.ParamName}} {{if .Flag.IsArr}}...{{end}}{{if .Flag.IsForcePtr}}*{{end}}{{.FieldType}}) *{{$.Name}}Builder {
-    {{$.ReceiverName}}Builder.{{.Name}}_ = {{if and (not .Flag.IsRequired) (not .Flag.IsArr)}}&{{end}}{{.ParamName}}
+    {{$.ReceiverName}}Builder.{{.Name}}_ = {{if and (not .Flag.IsRequired) (not .Flag.IsArr) (not .Flag.IsForcePtr)}}&{{end}}{{.ParamName}}
     return {{$.ReceiverName}}Builder
     }
 {{- end}}
@@ -51,4 +51,8 @@ return &{{.Name}}Builder {
 
 func ({{.ReceiverName}}Builder *{{.Name}}Builder) JSON() ([]byte, error) {
 return json.Marshal({{.ReceiverName}}Builder)
+}
+
+func ({{.ReceiverName}}Builder *{{.Name}}Builder) JSONIndent() ([]byte, error) {
+return json.MarshalIndent({{.ReceiverName}}Builder, "", "\t")
 }

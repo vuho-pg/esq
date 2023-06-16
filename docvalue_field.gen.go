@@ -27,3 +27,7 @@ func (_docvalueFieldBuilder *DocvalueFieldBuilder) Format(_format string) *Docva
 func (_docvalueFieldBuilder *DocvalueFieldBuilder) JSON() ([]byte, error) {
 	return json.Marshal(_docvalueFieldBuilder)
 }
+
+func (_docvalueFieldBuilder *DocvalueFieldBuilder) JSONIndent() ([]byte, error) {
+	return json.MarshalIndent(_docvalueFieldBuilder, "", "\t")
+}

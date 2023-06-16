@@ -27,3 +27,7 @@ func (_fieldBuilder *FieldBuilder) Format(_format string) *FieldBuilder {
 func (_fieldBuilder *FieldBuilder) JSON() ([]byte, error) {
 	return json.Marshal(_fieldBuilder)
 }
+
+func (_fieldBuilder *FieldBuilder) JSONIndent() ([]byte, error) {
+	return json.MarshalIndent(_fieldBuilder, "", "\t")
+}
