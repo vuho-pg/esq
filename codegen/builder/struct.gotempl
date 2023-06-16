@@ -1,31 +1,58 @@
 package esq
 
+import "encoding/json"
 
 type {{.Name}}Builder struct {
-    {{- range .Fields}}
-        {{.Name}} {{if not .Flag.IsRequired}}*{{end}}{{.FieldType}} `json:"{{.JsonTag}}{{if not .Flag.IsRequired}},omitempty{{end}}"`
-    {{- end}}
+{{- range .ExtendBuilder}}
+    *{{.}}Builder
+{{- end}}
+{{- range .Fields}}
+    {{.Name}}_ {{if .Flag.IsArr}}[]{{end}}{{if or .Flag.IsForcePtr (and (not .Flag.IsRequired) (not .Flag.IsArr))}}*{{end}}{{.FieldType}} `json:"{{.JsonTag}}{{if not .Flag.IsRequired}},omitempty{{end}}"`
+{{- end}}
 }
 
-func {{.Name}}(
+
+{{- if .ImplementInterface}}
+    {{range .ImplementInterface.Method}}
+        func (*{{$.Name}}Builder) {{.}}() {}
+    {{end -}}
+{{end}}
+
+
+func {{.Name}} (
 {{- range .Fields}}
-{{- if .Flag.IsRequired}}
-    {{.ParamName}} {{.FieldType}},
-{{- end -}}
+    {{- if .Flag.IsRequired}}
+        {{.ParamName}} {{if .Flag.IsArr}}[]{{end}}{{.FieldType}},
+    {{- end}}
 {{- end}}
 ) *{{.Name}}Builder {
-    return &{{.Name}}Builder {
-        {{- range.Fields}}
-            {{- if .Flag.IsRequired}}
-                {{.Name}}: {{.ParamName}},
-            {{- end -}}
-        {{- end}}
-    }
+return &{{.Name}}Builder {
+{{- range .Fields}}
+    {{- if .Flag.IsRequired}}
+        {{.Name}}_: {{.ParamName}},
+    {{- end}}
+{{- end}}
+}
 }
 
-{{- range .Fields}}
-    func (b *{{$.Name}}Builder) Set{{.Name}}({{.ParamName}} {{.FieldType}}) *{{$.Name}}Builder {
-        b.{{.Name}} = {{if not .Flag.IsRequired}}&{{end}}{{.ParamName}}
-        return b
+{{range .Fields}}
+    func ({{$.ReceiverName}}Builder *{{$.Name}}Builder) {{.Name}}({{.ParamName}} {{if .Flag.IsArr}}...{{end}}{{if .Flag.IsForcePtr}}*{{end}}{{.FieldType}}) *{{$.Name}}Builder {
+    {{$.ReceiverName}}Builder.{{.Name}}_ = {{if and (not .Flag.IsRequired) (not .Flag.IsArr) (not .Flag.IsForcePtr)}}&{{end}}{{.ParamName}}
+    return {{$.ReceiverName}}Builder
     }
-{{- end -}}
+{{- end}}
+
+{{range .ExtendBuilder}}
+    func ({{$.ReceiverName}}Builder *{{$.Name}}Builder) {{.}}({{$.ParamName .}} *{{.}}Builder) *{{$.Name}}Builder {
+    {{$.ReceiverName}}Builder.{{.}}Builder = {{$.ParamName .}}
+    return {{$.ReceiverName}}Builder
+    }
+{{- end}}
+
+func ({{.ReceiverName}}Builder *{{.Name}}Builder) JSON() ([]byte, error) {
+return json.Marshal({{.ReceiverName}}Builder)
+}
+
+func ({{.ReceiverName}}Builder *{{.Name}}Builder) JSONIndent() ([]byte, error) {
+return json.MarshalIndent({{.ReceiverName}}Builder, "", "\t")
+}

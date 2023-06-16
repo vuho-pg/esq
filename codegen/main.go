@@ -7,6 +7,10 @@ func main() {
 	if err := interfaceBuild(); err != nil {
 		panic(err)
 	}
+	//search api
+	if err := searchBuild(); err != nil {
+		panic(err)
+	}
 	//compound
 	if err := compoundBuild(); err != nil {
 		panic(err)
