@@ -1,7 +1,7 @@
 package esq
 
 type MatchInnerBuilder struct {
-	Query_                           string          `json:"query"`
+	Query_                           any             `json:"query"`
 	Analyzer_                        *string         `json:"analyzer,omitempty"`
 	AutoGenerateSynonymsPhraseQuery_ *bool           `json:"auto_generate_synonyms_phrase_query,omitempty"`
 	Fuzziness_                       *string         `json:"fuzziness,omitempty"`
@@ -24,7 +24,7 @@ func (*MatchBuilder) IsQuery() {}
 
 func Match(
 	_fieldName string,
-	_query string,
+	_query any,
 ) *MatchBuilder {
 	return &MatchBuilder{
 		fieldName: _fieldName,
@@ -36,7 +36,7 @@ func Match(
 	}
 }
 
-func (_match *MatchBuilder) Query(_query string) *MatchBuilder {
+func (_match *MatchBuilder) Query(_query any) *MatchBuilder {
 	_match.Match[_match.fieldName].Query_ = _query
 	return _match
 }

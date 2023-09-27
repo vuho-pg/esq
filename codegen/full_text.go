@@ -5,7 +5,7 @@ import . "github.com/vuho-pg/esq/codegen/builder"
 func fullTextQueryBuild() error {
 	return Run(
 		Map("Match", Struct("Match",
-			Field("Query").String().Required(),
+			Field("Query").Any().Required(),
 			Field("Analyzer").String(),
 			Field("AutoGenerateSynonymsPhraseQuery").Bool(),
 			Field("Fuzziness").String(),
@@ -19,7 +19,7 @@ func fullTextQueryBuild() error {
 			Field("ZeroTermsQuery").Enum(),
 		)).Implement(queryInterface),
 		Map("MatchBoolPrefix", Struct("MatchBoolPrefix",
-			Field("Query").String().Required(),
+			Field("Query").Any().Required(),
 			Field("Analyzer").String(),
 			Field("Fuzziness").String(),
 			Field("MinimumShouldMatch").String(),
@@ -29,7 +29,7 @@ func fullTextQueryBuild() error {
 			Field("FuzzyRewrite").String(),
 		)).Implement(queryInterface),
 		Map("MatchPhrase", Struct("MatchPhrase",
-			Field("Query").String().Required(),
+			Field("Query").Any().Required(),
 			Field("Analyzer").String(),
 			Field("ZeroTermsQuery").Enum(),
 		)).Implement(queryInterface),

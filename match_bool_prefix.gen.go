@@ -1,7 +1,7 @@
 package esq
 
 type MatchBoolPrefixInnerBuilder struct {
-	Query_               string  `json:"query"`
+	Query_               any     `json:"query"`
 	Analyzer_            *string `json:"analyzer,omitempty"`
 	Fuzziness_           *string `json:"fuzziness,omitempty"`
 	MinimumShouldMatch_  *string `json:"minimum_should_match,omitempty"`
@@ -20,7 +20,7 @@ func (*MatchBoolPrefixBuilder) IsQuery() {}
 
 func MatchBoolPrefix(
 	_fieldName string,
-	_query string,
+	_query any,
 ) *MatchBoolPrefixBuilder {
 	return &MatchBoolPrefixBuilder{
 		fieldName: _fieldName,
@@ -32,7 +32,7 @@ func MatchBoolPrefix(
 	}
 }
 
-func (_matchBoolPrefix *MatchBoolPrefixBuilder) Query(_query string) *MatchBoolPrefixBuilder {
+func (_matchBoolPrefix *MatchBoolPrefixBuilder) Query(_query any) *MatchBoolPrefixBuilder {
 	_matchBoolPrefix.MatchBoolPrefix[_matchBoolPrefix.fieldName].Query_ = _query
 	return _matchBoolPrefix
 }
