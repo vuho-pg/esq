@@ -1,9 +1,10 @@
 package builder
 
 import (
-	"github.com/gobeam/stringy"
 	"os"
 	"text/template"
+
+	"github.com/gobeam/stringy"
 )
 
 var kvTemplate *template.Template
@@ -16,22 +17,46 @@ func init() {
 	}
 }
 
-type KeyValueBuilder struct {
+type KeyValueField struct {
 	Name      string
-	FileName  string
-	KeyType   string
+	ParamName string
+	Key       string
 	ValueType string
-	IsSingle  bool
+}
+
+type KeyValueBuilder struct {
+	ReceiverName string
+	Name         string
+	FileName     string
+	KeyType      string
+	ValueType    string
+	IsSingle     bool
+	Fields       []*KeyValueField
 }
 
 func KeyValue(name, keyType, valueType string) *KeyValueBuilder {
 	return &KeyValueBuilder{
-		Name:      name,
-		KeyType:   keyType,
-		FileName:  "../" + stringy.New(name).SnakeCase().ToLower() + ".gen.go",
-		ValueType: valueType,
-		IsSingle:  true,
+		Name:         name,
+		KeyType:      keyType,
+		FileName:     "../" + stringy.New(name).SnakeCase().ToLower() + ".gen.go",
+		ReceiverName: "_" + stringy.New(stringy.New(name).CamelCase()).LcFirst(),
+		ValueType:    valueType,
+		IsSingle:     true,
 	}
+}
+
+func (k *KeyValueBuilder) Field(name, key, valueType string) *KeyValueBuilder {
+	if valueType == "" {
+		valueType = k.ValueType
+	}
+	k.Fields = append(k.Fields, &KeyValueField{
+		Name:      name,
+		ParamName: "_" + stringy.New(stringy.New(name).CamelCase()).LcFirst(),
+		Key:       key,
+		ValueType: valueType,
+	})
+
+	return k
 }
 
 func (k *KeyValueBuilder) Multiple() *KeyValueBuilder {

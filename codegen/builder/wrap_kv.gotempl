@@ -1,0 +1,38 @@
+package esq
+
+type {{.Name}}InnerBuilder map[{{.InnerType.KeyType}}]{{.InnerType.ValueType}}
+
+type {{.Name}}Builder struct {
+{{.Name}} {{.Name}}InnerBuilder `json:"{{.JsonTag}}"`
+}
+
+{{- if .ImplementInterface}}
+    {{range .ImplementInterface.Method}}
+        func (*{{$.Name}}Builder) {{.}}() {}
+    {{end -}}
+{{end}}
+
+
+func {{.Name}} (
+) *{{.Name}}Builder {
+return &{{.Name}}Builder {
+{{.Name}}: {{.Name}}InnerBuilder{
+
+},
+}
+}
+
+{{- range .SetterFn}}
+func ({{$.ReceiverName}} *{{$.Name}}Builder) {{.Name}}(key_ {{$.InnerType.KeyType}}, value_ {{.ValueType}}) *{{$.Name}}Builder {
+    {{$.ReceiverName}}.{{$.Name}}[key_] = value_
+    return {{$.ReceiverName}}
+    }
+{{- end}}
+
+{{- range .InnerType.Fields}}
+    func ({{$.ReceiverName}} *{{$.Name}}Builder) {{.Name}}({{.ParamName}} {{.ValueType}}) *{{$.Name}}Builder {
+        {{$.ReceiverName}}.{{$.Name}}["{{.Key}}"] = {{.ParamName}}
+        return {{$.ReceiverName}}
+    }
+{{- end}}
+
