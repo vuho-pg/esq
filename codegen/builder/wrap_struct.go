@@ -1,9 +1,10 @@
 package builder
 
 import (
-	"github.com/gobeam/stringy"
 	"os"
 	"text/template"
+
+	"github.com/gobeam/stringy"
 )
 
 var wrapStructTempl *template.Template

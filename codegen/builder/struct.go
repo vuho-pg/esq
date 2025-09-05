@@ -2,9 +2,10 @@ package builder
 
 import (
 	_ "embed"
-	"github.com/gobeam/stringy"
 	"os"
 	"text/template"
+
+	"github.com/gobeam/stringy"
 )
 
 type Flag int

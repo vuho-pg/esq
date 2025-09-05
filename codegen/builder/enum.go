@@ -2,9 +2,10 @@ package builder
 
 import (
 	"fmt"
-	"github.com/gobeam/stringy"
 	"os"
 	"text/template"
+
+	"github.com/gobeam/stringy"
 )
 
 var enumTemplate *template.Template
@@ -24,6 +25,7 @@ type EnumBuilder struct {
 	Values   []string
 }
 
+// Enum generates enum type
 func Enum(name string, t string) *EnumBuilder {
 	return &EnumBuilder{
 		Name:     name,
@@ -33,6 +35,7 @@ func Enum(name string, t string) *EnumBuilder {
 	}
 }
 
+// Value adds enum values
 func (m *EnumBuilder) Value(values ...string) *EnumBuilder {
 	m.Values = append(m.Values, values...)
 	return m

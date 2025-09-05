@@ -45,7 +45,10 @@ func termBuild() error {
 			Field("Boost").Float64(),
 			Field("CaseInsensitive").Bool(),
 		)).Implement(queryInterface),
-		// TODO: Terms
+		WrapKV("Terms",
+			KeyValue("Terms", "string", "any").Multiple().Field("Boost", "boost", ""),
+		).Setter("Field", "[]string").Implement(queryInterface),
+		//WrapKV("Terms", KeyValue("Terms", "string", "[]string")).Implement(queryInterface),
 		Map("TermsSet", Struct("TermsSet",
 			Field("Terms").String().Required().Array(),
 			Field("MinimumShouldMatchField").String(),

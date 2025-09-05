@@ -9,4 +9,11 @@ func {{.Name}}(key_ {{.KeyType}}, value_ {{.ValueType}}) {{.Name}}Builder {
 }
 {{else}}
 
+{{- range .Fields}}
+    func ({{$.ReceiverName}} {{$.Name}}Builder) {{.Name}}({{.ParamName}} {{.ValueType}}) {{$.Name}}Builder {
+        {{$.ReceiverName}}["{{.Key}}"] = {{.ParamName}}
+        return {{$.ReceiverName}}
+    }
+{{- end}}
+
 {{end}}
